@@ -5,7 +5,7 @@
 # ├───┼───┼───┤
 # │   │   │   │
 # └───┴───┴───┘
-from os import error, system
+from os import system
 from random import choice
 
 
