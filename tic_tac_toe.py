@@ -40,50 +40,14 @@ def human_move(available):
 
     # 1 3 = 0*3 + 2-> 2
     # 3 3 = 2*3 + 2-> 8
-    if KR1 == 1 and KR2 == 1:
-        if 0 not in available:
-            raise Exception("Это поле уже занято. Попробуй еще раз!")
-        return 0
 
-    if KR1 == 1 and KR2 == 2:
-        if 1 not in available:
-            raise Exception("Это поле уже занято. Попробуй еще раз!")
-        return 1
+    KR1 -= 1
+    KR2 -= 1
+    res = KR1 * 3 + KR2
 
-    if KR1 == 1 and KR2 == 3:
-        if 2 not in available:
-            raise Exception("Это поле уже занято. Попробуй еще раз!")
-        return 2
-
-    if KR1 == 2 and KR2 == 1:
-        if 3 not in available:
-            raise Exception("Это поле уже занято. Попробуй еще раз!")
-        return 3
-
-    if KR1 == 2 and KR2 == 2:
-        if 4 not in available:
-            raise Exception("Это поле уже занято. Попробуй еще раз!")
-        return 4
-
-    if KR1 == 2 and KR2 == 3:
-        if 5 not in available:
-            raise Exception("Это поле уже занято. Попробуй еще раз!")
-        return 5
-
-    if KR1 == 3 and KR2 == 1:
-        if 6 not in available:
-            raise Exception("Это поле уже занято. Попробуй еще раз!")
-        return 6
-
-    if KR1 == 3 and KR2 == 2:
-        if 7 not in available:
-            raise Exception("Это поле уже занято. Попробуй еще раз!")
-        return 7
-
-    if KR1 == 3 and KR2 == 3:
-        if 8 not in available:
-            raise Exception("Это поле уже занято. Попробуй еще раз!")
-        return 8
+    if res not in available:
+        raise Exception("Это поле уже занято. Попробуй еще раз!")
+    return res
 
 
 def computer_move(Avaible):
@@ -151,14 +115,18 @@ while not game_over:
     else:
         lst[move] = "X"
         available.remove(move)
+        draw_field(lst)
         game_over = check_game_over(available, lst)
         if not game_over:
             if game_type == 1:
-                try:
-                    move = human_move(available)
-                except Exception as e:
-                    print(e)
-                    system("pause")
+                error = True
+                while error:
+                    try:
+                        move = human_move(available)
+                        error = False
+                    except Exception as e:
+                        print(e)
+                        system("pause")
             elif game_type == 2:
                 move = computer_move(available)
             lst[move] = "O"
