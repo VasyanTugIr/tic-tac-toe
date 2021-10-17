@@ -130,6 +130,16 @@ def find_game_over(field):
 available = [i for i in range(9)]
 lst = [" "] * 9
 game_over = False
+print("Как вы хотите играть?")
+print(
+    """
+1.Друг
+2.Компьютер
+"""
+)
+game_type = int(input())
+
+
 while not game_over:
     system("cls")
     draw_field(lst)
@@ -143,17 +153,14 @@ while not game_over:
         available.remove(move)
         game_over = check_game_over(available, lst)
         if not game_over:
-
-            move = computer_move(available)
+            if game_type == 1:
+                try:
+                    move = human_move(available)
+                except Exception as e:
+                    print(e)
+                    system("pause")
+            elif game_type == 2:
+                move = computer_move(available)
             lst[move] = "O"
             available.remove(move)
             game_over = check_game_over(available, lst)
-
-    # try:
-    #     move = human_move(available)
-    # except Exception as e:
-    #     print(e)
-    #     system("pause")
-    # else:
-    #     lst[move] = "O"
-    #     available.remove(move)
